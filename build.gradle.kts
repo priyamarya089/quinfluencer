@@ -20,6 +20,13 @@ buildscript {
 
 repositories {
     mavenCentral()
+
+    maven {
+        url = uri("s3://library.lastbrand.com/releases")
+        authentication {
+            create<AwsImAuthentication>("awsIm") // load from EC2 role or env var
+        }
+    }
 }
 
 plugins {
@@ -49,6 +56,7 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.1")
+    implementation("com.lastbrand.commons:temporal-data-manager:2.0.0")
 }
 
 tasks.withType<KotlinCompile> {
